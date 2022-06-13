@@ -16,6 +16,9 @@ using namespace std;
 /*takeaways
   - can't use brute price as its time complexity will be O(n^2)
   - use DP
+    - update or carry over the min price and the max profit
+      for each day
+    - return the max profit
 */
 
 int Solution::maxProfit(vector<int> &prices)
@@ -36,21 +39,18 @@ int Solution::maxProfit(vector<int> &prices)
 
   for (auto i = 1; i < n; i++)
   {
-    /* carry over or update the min price */
-    minPrice[i] = min(minPrice[i - 1], prices[i]);
 
-    /* the smallest max profit has been set to 0 initially
-       if you sell and buy a share at the same day the
-       profit will be 0 anyway and will not change the
-       max profit
-      so
-      max(maxProfit[i - 1], prices[i] - minPrice[i - 1])
-      and
-      max(maxProfit[i - 1], prices[i] - minPrice[i])
-      will be the same
-
+    /* the profit has been set to 0 initially
+       - if you buy and sell a share on the same day the
+         profit will be 0 anyway and will not change the
+         max profit
+       - look at the min price up until the day before
+         - calculate if we can generate a better profit
+           if we see the share today
     */
     maxProfit[i] = max(maxProfit[i - 1], prices[i] - minPrice[i - 1]);
+    /* carry over or update the min price */
+    minPrice[i] = min(minPrice[i - 1], prices[i]);
   }
 
   return maxProfit[n - 1];
