@@ -14,6 +14,12 @@ using namespace sol121;
 using namespace std;
 
 /*takeaways
+  - you need to know the min price and max profit up to the
+    day before.
+    - since there will be no profit if you buy and sell on the same
+      day so maxProfit[0] = 0
+    - you can see if you sell the share today, will it increase
+      the profit
   - can't use brute price as its time complexity will be O(n^2)
   - use DP
     - update or carry over the min price and the max profit
